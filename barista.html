@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barista Live KDS — Bean & Beyond</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+    <style>
+        body {
+            background-color: var(--bg-base);
+            padding: 30px;
+        }
+
+        .barista-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .kds-stats-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .kds-stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 14px 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kds-stat-val {
+            font-family: var(--font-accent);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-caramel);
+            line-height: 1.1;
+        }
+
+        .kds-stat-lbl {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .kds-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .kds-tab-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: var(--transition-smooth);
+        }
+
+        .kds-tab-btn.active {
+            background: var(--accent-dark);
+            color: var(--bg-base);
+            border-color: var(--accent-dark);
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        .kds-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .kds-card.status-queued {
+            border-left: 6px solid var(--accent-amber);
+        }
+
+        .kds-card.status-brewing {
+            border-left: 6px solid var(--accent-caramel);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .kds-card.status-ready {
+            border-left: 6px solid #10b981;
+        }
+
+        .kds-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border-subtle);
+        }
+
+        .order-token {
+            font-family: var(--font-accent);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .order-meta-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pill-queued { background: rgba(217, 119, 36, 0.2); color: var(--accent-amber); }
+        .pill-brewing { background: rgba(200, 136, 59, 0.25); color: var(--accent-caramel); }
+        .pill-ready { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .pill-completed { background: rgba(150, 137, 126, 0.2); color: var(--text-muted); }
+
+        .kds-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .kds-item-row {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .kds-item-specs {
+            font-size: 0.78rem;
+            color: var(--accent-caramel);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .kds-action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .btn-kds-action {
+            flex: 1;
+            padding: 9px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .reservations-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .reservations-table th, .reservations-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+        }
+
+        .reservations-table th {
+            background: var(--bg-surface);
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent-caramel);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1400px;">
+        <!-- BARISTA HEADER -->
+        <div class="barista-header">
+            <div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 2rem;">☕</span>
+                    <div>
+                        <h1 style="font-size: 1.9rem; font-weight: 700; margin: 0;">Barista Live Kitchen Display (KDS)</h1>
+                        <p style="font-size: 0.82rem; color: var(--text-muted);">Real-time orders & table reservations stream · Bean & Beyond Roastery</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kds-stats-row">
+                <div class="kds-stat-card">
+                    <span class="kds-stat-val" id="kdsActiveCount">0</span>
+                    <span class="kds-stat-lbl">Active Queue</span>
+                </div>
+                <div class="kds-stat-card">
+                    <span class="kds-stat-val" id="kdsTotalRevenue">₹0</span>
+                    <span class="kds-stat-lbl">Total Shift Revenue</span>
+                </div>
+                <div class="kds-stat-card">
+                    <span class="kds-stat-val" id="kdsCupsCount">0</span>
+                    <span class="kds-stat-lbl">Cups Extracted</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <a href="/" class="btn-secondary" style="padding: 10px 18px; font-size: 0.85rem;">View Main Café Site ↗</a>
+                    <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme">🌙</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="kds-tabs">
+            <button class="kds-tab-btn active" id="tabActiveBtn" onclick="switchKdsTab('active')">Active Orders (<span id="activeTabCount">0</span>)</button>
+            <button class="kds-tab-btn" id="tabAllBtn" onclick="switchKdsTab('all')">All Shift Orders</button>
+            <button class="kds-tab-btn" id="tabResBtn" onclick="switchKdsTab('reservations')">Table Bookings (<span id="resTabCount">0</span>)</button>
+        </div>
+
+        <!-- ORDERS VIEW -->
+        <div id="kdsOrdersView" class="orders-grid">
+            <!-- Populated via JS -->
+        </div>
+
+        <!-- RESERVATIONS VIEW (HIDDEN INITIALLY) -->
+        <div id="kdsReservationsView" style="display: none;">
+            <table class="reservations-table">
+                <thead>
+                    <tr>
+                        <th>Ref #</th>
+                        <th>Guest Name</th>
+                        <th>Party Size</th>
+                        <th>Seating Area</th>
+                        <th>Date & Time</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="kdsReservationsList">
+                    <!-- Populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'active';
+        let cachedOrdersCount = 0;
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('bb_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) btn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('bb_theme', next);
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) btn.innerHTML = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function switchKdsTab(tab) {
+            currentTab = tab;
+            document.getElementById('tabActiveBtn').classList.toggle('active', tab === 'active');
+            document.getElementById('tabAllBtn').classList.toggle('active', tab === 'all');
+            document.getElementById('tabResBtn').classList.toggle('active', tab === 'reservations');
+
+            document.getElementById('kdsOrdersView').style.display = tab === 'reservations' ? 'none' : 'grid';
+            document.getElementById('kdsReservationsView').style.display = tab === 'reservations' ? 'block' : 'none';
+
+            fetchKdsData();
+        }
+
+        async function fetchKdsData() {
+            try {
+                // Fetch stats
+                const statsRes = await fetch('/api/stats');
+                const stats = await statsRes.json();
+                if (stats.success) {
+                    document.getElementById('kdsActiveCount').innerText = stats.activeOrders;
+                    document.getElementById('activeTabCount').innerText = stats.activeOrders;
+                    document.getElementById('kdsTotalRevenue').innerText = `₹${stats.totalRevenue}`;
+                    document.getElementById('kdsCupsCount').innerText = stats.totalCups;
+                    document.getElementById('resTabCount').innerText = stats.totalReservations;
+                }
+
+                // Fetch Orders
+                const ordersRes = await fetch('/api/orders');
+                const ordersData = await ordersRes.json();
+                if (ordersData.success) {
+                    renderOrders(ordersData.orders);
+                }
+
+                // Fetch Reservations
+                const resRes = await fetch('/api/reservations');
+                const resData = await resRes.json();
+                if (resData.success) {
+                    renderReservations(resData.reservations);
+                }
+            } catch (err) {
+                console.error('KDS Fetch Error:', err);
+            }
+        }
+
+        function renderOrders(orders) {
+            const container = document.getElementById('kdsOrdersView');
+            if (!container) return;
+
+            let filtered = orders;
+            if (currentTab === 'active') {
+                filtered = orders.filter(o => o.status === 'queued' || o.status === 'brewing');
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align:center; padding: 60px 20px; color: var(--text-muted);">
+                        <p style="font-size:3rem; margin-bottom:12px;">☕</p>
+                        <h3>No orders in this queue.</h3>
+                        <p style="font-size:0.85rem;">All caught up! Ready to extract fresh single origins.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(order => {
+                const timeAgo = Math.max(1, Math.round((Date.now() - new Date(order.createdAt).getTime()) / 60000));
+                
+                return `
+                    <div class="kds-card status-${order.status}">
+                        <div>
+                            <div class="kds-card-head">
+                                <div>
+                                    <div class="order-token">${order.id}</div>
+                                    <div style="font-size:0.85rem; font-weight:700; color:var(--text-primary); margin-top:2px;">
+                                        👤 ${order.customerName}
+                                    </div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                                        📍 ${order.tableOrPickup} · ⏱ ${order.speed}
+                                    </div>
+                                </div>
+                                <div style="text-align:right;">
+                                    <span class="order-meta-pill pill-${order.status}">${order.status}</span>
+                                    <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">${timeAgo}m ago</div>
+                                </div>
+                            </div>
+
+                            <div class="kds-items-list">
+                                ${order.items.map(item => `
+                                    <div class="kds-item-row">
+                                        <strong>${item.quantity}× ${item.name}</strong> (₹${item.price})
+                                        ${item.specs ? `<div class="kds-item-specs">↳ ${item.specs}</div>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-secondary); border-top:1px dashed var(--border-subtle); padding-top:8px;">
+                                <span>Total: ₹${order.grandTotal}</span>
+                                ${order.discount > 0 ? `<span style="color:var(--accent-terracotta);">Disc: -₹${order.discount}</span>` : ''}
+                            </div>
+
+                            <div class="kds-action-buttons">
+                                ${order.status === 'queued' ? `
+                                    <button class="btn-kds-action" style="background:var(--accent-amber); color:#fff;" onclick="updateOrderStatus('${order.id}', 'brewing')">
+                                        Start Brewing ☕
+                                    </button>
+                                ` : ''}
+
+                                ${order.status === 'brewing' ? `
+                                    <button class="btn-kds-action" style="background:#10b981; color:#fff;" onclick="updateOrderStatus('${order.id}', 'ready')">
+                                        Ready for Pickup 🔔
+                                    </button>
+                                ` : ''}
+
+                                ${order.status === 'ready' ? `
+                                    <button class="btn-kds-action" style="background:var(--accent-dark); color:var(--bg-base);" onclick="updateOrderStatus('${order.id}', 'completed')">
+                                        Mark Completed ✔
+                                    </button>
+                                ` : ''}
+
+                                ${order.status === 'completed' ? `
+                                    <span style="font-size:0.78rem; color:var(--text-muted); text-align:center; width:100%;">Order Fulfilled</span>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderReservations(reservations) {
+            const list = document.getElementById('kdsReservationsList');
+            if (!list) return;
+
+            if (reservations.length === 0) {
+                list.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">No table bookings yet.</td></tr>';
+                return;
+            }
+
+            list.innerHTML = reservations.map(r => `
+                <tr>
+                    <td><strong>${r.id}</strong></td>
+                    <td><strong>${r.name}</strong></td>
+                    <td>${r.guests}</td>
+                    <td>${r.area}</td>
+                    <td>${r.date} · ${r.time}</td>
+                    <td>${r.phone}</td>
+                    <td><span class="order-meta-pill pill-ready">${r.status}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                const res = await fetch(`/api/orders/${orderId}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    fetchKdsData();
+                }
+            } catch (err) {
+                console.error('Update status error:', err);
+            }
+        }
+
+        // Auto polling every 4 seconds
+        setInterval(fetchKdsData, 4000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            fetchKdsData();
+        });
+    </script>
+</body>
+</html>

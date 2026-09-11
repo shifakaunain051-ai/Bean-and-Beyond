@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "text": "\"Sat by the rain-streaked window for 3 hours today sipping the Ethiopian V60 and finally finished my design book. Pure magic.\"",
+    "author": "Aarav M. — Corner Table #4",
+    "likes": 18,
+    "createdAt": "2026-09-11T12:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "text": "\"Best flat white in town hands down. The milk texture is liquid silk and the lo-fi beats make you forget about deadlines.\"",
+    "author": "Maya S. — Barista Bar",
+    "likes": 25,
+    "createdAt": "2026-09-11T14:15:00.000Z"
+  },
+  {
+    "id": 3,
+    "text": "\"The Swedish Cardamom Bun with a Spanish Cortado is the ultimate pairing. Bean & Beyond feels like a haven.\"",
+    "author": "Rohan K. — Sunlit Patio",
+    "likes": 14,
+    "createdAt": "2026-09-11T16:00:00.000Z"
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "BB-1826",
+    "customerName": "Shifa",
+    "tableOrPickup": "Table #1",
+    "speed": "Brew Immediately (~7 mins)",
+    "items": [
+      {
+        "name": "Spanish Cortado",
+        "price": 210,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 210,
+    "discount": 0,
+    "grandTotal": 210,
+    "promoCode": null,
+    "status": "ready",
+    "createdAt": "2026-09-11T18:06:04.254Z"
+  },
+  {
+    "id": "BB-1024",
+    "customerName": "Aarav Sharma",
+    "tableOrPickup": "Corner Table #4",
+    "speed": "Brew Immediately (~7 mins)",
+    "items": [
+      {
+        "name": "Ethiopian Yirgacheffe V60",
+        "specs": "Washed Process · Floral Jasmine",
+        "price": 260,
+        "quantity": 1
+      },
+      {
+        "name": "Swedish Cardamom Bun",
+        "specs": "Warm Spices",
+        "price": 210,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 470,
+    "discount": 0,
+    "grandTotal": 470,
+    "status": "ready",
+    "createdAt": "2026-09-11T17:45:00.000Z"
+  },
+  {
+    "id": "BB-1025",
+    "customerName": "Priya Nair",
+    "tableOrPickup": "Pickup at Bar",
+    "speed": "Ready in 20 mins",
+    "items": [
+      {
+        "name": "Bespoke Double Ristretto (12oz)",
+        "specs": "Oatly Barista · Warm 65°C · Madagascar Vanilla Caviar",
+        "price": 280,
+        "quantity": 2
+      }
+    ],
+    "subtotal": 560,
+    "discount": 84,
+    "grandTotal": 476,
+    "status": "ready",
+    "createdAt": "2026-09-11T17:52:00.000Z"
+  }
+]

@@ -1,127 +1,744 @@
- <!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Bean & Beyond</title>
-
+    <title>Bean & Beyond — Artisanal Specialty Coffeehouse & Slow Roastery</title>
+    <meta name="description" content="Thoughtfully roasted coffee for slow mornings, long conversations, and everything in between. Featuring an interactive brew studio, lo-fi café radio, and reserve origin roasts.">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
 </head>
-
 <body>
- 
-    <nav>
-        <div class="logo">BEAN & BEYOND</div>
 
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Menu</a>
-            <a href="#">About</a>
-            <a href="#">Help</a>
+    <!-- STICKY TOP NAVIGATION -->
+    <header class="nav-wrapper">
+        <div class="container">
+            <nav>
+                <div class="logo-group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="logo-symbol" title="Click to reveal Secret Vault" onclick="event.stopPropagation(); openVaultModal();">☕</div>
+                    <div class="logo-text">
+                        <span class="logo-title">BEAN & BEYOND</span>
+                        <span class="logo-tagline">Slow Roastery · Est. 2026</span>
+                    </div>
+                </div>
+
+                <div class="nav-links">
+                    <a href="#hero" class="active">Home</a>
+                    <a href="#mood-matcher">Vibe Quiz</a>
+                    <a href="#brew-studio">Craft Studio</a>
+                    <a href="#philosophy">Philosophy</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#bakery">Bakery</a>
+                    <a href="#reserve">Reservations</a>
+                    <a href="#guestbook">Corner Table</a>
+                </div>
+
+                <div class="nav-actions">
+                    <!-- Theme Mode Toggle -->
+                    <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme" title="Switch Theme">
+                        🌙
+                    </button>
+
+                    <!-- Cart Trigger -->
+                    <button class="cart-nav-btn" id="cartNavBtn" onclick="openCartDrawer()" aria-label="Shopping Bag">
+                        <span>Bag</span>
+                        <span class="cart-count" id="cartBadge" style="display: none;">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-toggle" onclick="openCartDrawer()" aria-label="Open Menu">
+                        ☰
+                    </button>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
- 
+    <!-- HERO SECTION -->
     <main>
-        <section class="hero">
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <div class="live-status-pill">
+                            <span class="live-dot"></span>
+                            <span>Brewing now · Roastery open until 11:00 PM</span>
+                        </div>
 
-            <div class="hero-text">
+                        <h1>
+                            Coffee,<br>
+                            <span class="italic">Beyond</span> Ordinary.
+                        </h1>
 
-                <p class="intro">WELCOME TO BEAN & BEYOND</p>
+                        <p class="hero-description">
+                            Thoughtfully roasted coffee for slow mornings, long conversations, and everything in between. Handcrafted single origins, precision manual brews, and soulful café ambience.
+                        </p>
 
-                <h1>
-                    Coffee,<br>
-                    Beyond Ordinary.
-                </h1>
+                        <div class="hero-cta-group">
+                            <a href="#menu" class="btn-primary">
+                                <span>Explore The Bar</span>
+                                <span>→</span>
+                            </a>
+                            <a href="#brew-studio" class="btn-secondary">
+                                <span>Craft Your Cup</span>
+                                <span>✦</span>
+                            </a>
+                        </div>
 
-                <p class="description">
-                    Thoughtfully roasted coffee for slow mornings,
-                    long conversations and everything in between.
+                        <div class="hero-stats-row">
+                            <div class="stat-item">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">Micro-Lot Estates</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">92+</span>
+                                <span class="stat-label">SCA Cup Score</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Compostable Craft</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="hero-image-frame">
+                            <img src="assets/hero_latte.jpg" alt="Artisanal Tulip Latte Art on Marble Table at Bean & Beyond">
+                            <div class="steam-container">
+                                <div class="steam-particle"></div>
+                                <div class="steam-particle"></div>
+                                <div class="steam-particle"></div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badges -->
+                        <div class="badge-floating-top">
+                            <span class="badge-icon">🌿</span>
+                            <div>
+                                <div class="badge-text-bold">Western Ghats Reserve</div>
+                                <div class="badge-text-sub">Elevation 1,450m</div>
+                            </div>
+                        </div>
+
+                        <div class="badge-floating-bottom">
+                            <span class="badge-icon">⭐</span>
+                            <div>
+                                <div class="badge-text-bold">Roasted In Small Batches</div>
+                                <div class="badge-text-sub">Drum roasted twice weekly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IMMERSIVE LO-FI AUDIO & AMBIENCE DOCK -->
+        <div class="container audio-dock-container">
+            <div class="audio-player-card">
+                <div class="vinyl-section">
+                    <div class="vinyl-disk" id="vinylDisk">
+                        <div class="vinyl-label"></div>
+                    </div>
+                    <div class="track-info">
+                        <div class="visualizer-bars" id="visualizerBars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <h4 id="trackTitle">Rain on Roasted Beans</h4>
+                        <div class="track-artist">Bean & Beyond Live Lo-Fi Synth Radio</div>
+                    </div>
+                </div>
+
+                <div class="audio-controls">
+                    <button class="audio-btn" id="audioPlayBtn" onclick="audioPlayer.togglePlay()" title="Play / Pause Lo-Fi Ambience" aria-label="Play Lo-Fi Music">
+                        ▶
+                    </button>
+
+                    <div class="ambient-toggles">
+                        <button class="ambient-chip active" id="chipRain" onclick="audioPlayer.toggleRain()" title="Toggle Cozy Rain Sound">
+                            <span>🌧️</span> Rain on Glass
+                        </button>
+                        <button class="ambient-chip active" id="chipCrackle" onclick="audioPlayer.toggleCrackle()" title="Toggle Vintage Vinyl Needle Noise">
+                            <span>📻</span> Vinyl Crackle
+                        </button>
+                    </div>
+
+                    <div class="volume-wrapper">
+                        <span style="font-size:0.85rem;">🔈</span>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.55" oninput="audioPlayer.setVolume(this.value)" aria-label="Ambience Volume">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOOD MATCHER (VIBE QUIZ) -->
+        <section class="mood-section" id="mood-matcher">
+            <div class="container">
+                <span class="section-tag">✦ SENSORY CURATION</span>
+                <h2 class="section-title">What is your vibe today?</h2>
+                <p class="section-subtitle">
+                    Coffee is a state of mind. Tell us your current headspace, and our head roaster will pour your tailored brew.
                 </p>
 
-                <a href="#" class="menu-button">Explore Menu</a>
+                <div class="mood-selector-container">
+                    <div class="mood-options-list">
+                        <button class="mood-option-card active" data-mood="focus" onclick="selectMood('focus')">
+                            <div class="mood-card-icon">🎯</div>
+                            <div>
+                                <div class="mood-card-title">Deep Focus & Flow</div>
+                                <div class="mood-card-desc">Laser clarity, crisp notes, zero afternoon crash.</div>
+                            </div>
+                        </button>
 
+                        <button class="mood-option-card" data-mood="sunday" onclick="selectMood('sunday')">
+                            <div class="mood-card-icon">📖</div>
+                            <div>
+                                <div class="mood-card-title">Slow Sunday Lounge</div>
+                                <div class="mood-card-desc">Gentle warmth, velvety microfoam, soothing spices.</div>
+                            </div>
+                        </button>
+
+                        <button class="mood-option-card" data-mood="coding" onclick="selectMood('coding')">
+                            <div class="mood-card-icon">⚡</div>
+                            <div>
+                                <div class="mood-card-title">Late Night Midnight Coding</div>
+                                <div class="mood-card-desc">High sustained caffeine, dark chocolate oak, zero bitterness.</div>
+                            </div>
+                        </button>
+
+                        <button class="mood-option-card" data-mood="energize" onclick="selectMood('energize')">
+                            <div class="mood-card-icon">☀️</div>
+                            <div>
+                                <div class="mood-card-title">Morning Caffeine Elevation</div>
+                                <div class="mood-card-desc">Direct double ristretto punch with dense golden crema.</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="mood-result-display" id="moodResultDisplay">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
             </div>
+        </section>
 
+        <!-- BESPOKE BREW STUDIO (CRAFT YOUR CUP BUILDER) -->
+        <section class="studio-section" id="brew-studio">
+            <div class="container">
+                <span class="section-tag">✦ CRAFT LAB</span>
+                <h2 class="section-title">Bespoke Brew Studio</h2>
+                <p class="section-subtitle">
+                    Engineer your exact cup. Select base extraction, dairy or artisanal oat blend, temperature, and bespoke infusions.
+                </p>
 
-            <div class="hero-image">
-                <img src=https://tse2.mm.bing.net/th/id/OIP.z4hQYU-XNT4ocIjvFWxBPgHaJQ?r=0&w=576&h=720&rs=1&pid=ImgDetMain&o=7&rm=3" alt="A cup of coffee">
+                <div class="studio-grid">
+                    <!-- Live Cup Visualizer -->
+                    <div class="cup-visualizer-container">
+                        <div class="cup-wrapper">
+                            <div class="cup-saucer"></div>
+                            <div class="glass-cup">
+                                <div class="cup-layer-foam" id="cupLayerFoam"></div>
+                                <div class="cup-layer-syrup" id="cupLayerSyrup"></div>
+                                <div class="cup-layer-milk" id="cupLayerMilk"></div>
+                                <div class="cup-layer-coffee" id="cupLayerCoffee"></div>
+                            </div>
+                            <div class="cup-handle"></div>
+                        </div>
+
+                        <div class="cup-badge-overlay">
+                            <span class="cup-spec-tag" id="cupSpecSize">12oz Regular</span>
+                            <span class="cup-spec-tag" id="cupSpecBase">Double Ristretto</span>
+                            <span class="cup-spec-tag" id="cupSpecMilk">Oatly Barista</span>
+                        </div>
+                    </div>
+
+                    <!-- Customizer Controls -->
+                    <div class="studio-controls">
+                        <!-- Cup Size -->
+                        <div class="control-group">
+                            <span class="control-label">1. Cup Size</span>
+                            <div class="chip-options-grid">
+                                <button class="studio-chip" onclick="updateStudioOption('size', '8oz Short', 0, this)">8oz Short</button>
+                                <button class="studio-chip active" onclick="updateStudioOption('size', '12oz Regular', 30, this)">12oz Standard (+₹30)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('size', '16oz Grand', 60, this)">16oz Grand (+₹60)</button>
+                            </div>
+                        </div>
+
+                        <!-- Espresso / Brew Base -->
+                        <div class="control-group">
+                            <span class="control-label">2. Espresso & Brew Foundation</span>
+                            <div class="chip-options-grid">
+                                <button class="studio-chip active" onclick="updateStudioOption('base', 'Double Ristretto', 180, this)">Double Ristretto (₹180)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('base', 'Kyoto Cold Brew', 210, this)">Kyoto Cold Brew (₹210)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('base', 'Matcha Espresso Fusion', 240, this)">Matcha Espresso (₹240)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('base', 'Golden Turmeric Latte', 200, this)">Golden Turmeric (₹200)</button>
+                            </div>
+                        </div>
+
+                        <!-- Milk / Dairy Alternative -->
+                        <div class="control-group">
+                            <span class="control-label">3. Milk Craft</span>
+                            <div class="chip-options-grid">
+                                <button class="studio-chip active" onclick="updateStudioOption('milk', 'Oatly Barista', 40, this)">Oatly Barista (+₹40)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('milk', 'Whole Jersey Milk', 0, this)">Whole Jersey Milk (+₹0)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('milk', 'Creamy Almond', 40, this)">Creamy Almond (+₹40)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('milk', 'Sicilian Pistachio Milk', 55, this)">Pistachio Milk (+₹55)</button>
+                            </div>
+                        </div>
+
+                        <!-- Temperature & Ice -->
+                        <div class="control-group">
+                            <span class="control-label">4. Temperature & Texture</span>
+                            <div class="chip-options-grid">
+                                <button class="studio-chip active" onclick="updateStudioOption('temp', 'Warm 65°C', 0, this)">Steamed 65°C</button>
+                                <button class="studio-chip" onclick="updateStudioOption('temp', 'Extra Hot 75°C', 0, this)">Extra Hot 75°C</button>
+                                <button class="studio-chip" onclick="updateStudioOption('temp', 'On The Rocks', 0, this)">Over Clear Ice</button>
+                                <button class="studio-chip" onclick="updateStudioOption('temp', 'Nitro Frosted', 25, this)">Nitro Frosted (+₹25)</button>
+                            </div>
+                        </div>
+
+                        <!-- Syrups & Infusions -->
+                        <div class="control-group">
+                            <span class="control-label">5. Artisan Infusions</span>
+                            <div class="chip-options-grid">
+                                <button class="studio-chip active" onclick="updateStudioOption('syrup', 'Madagascar Vanilla Caviar', 30, this)">Vanilla Caviar (+₹30)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('syrup', 'Smoked Sea Salt Caramel', 35, this)">Salted Caramel (+₹35)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('syrup', 'Cardamom Rose Crema', 40, this)">Cardamom Rose (+₹40)</button>
+                                <button class="studio-chip" onclick="updateStudioOption('syrup', 'None', 0, this)">Pure / No Sweetener (+₹0)</button>
+                            </div>
+                        </div>
+
+                        <!-- Taste Radar Meters -->
+                        <div class="taste-meters-row">
+                            <div class="meter-item">
+                                <div class="meter-header">
+                                    <span>Sweetness Balance</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="meterSweetness" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header">
+                                    <span>Roast Intensity</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="meterIntensity" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header">
+                                    <span>Silky Body</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="meterBody" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header">
+                                    <span>Caffeine Kick</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="meterCaffeine" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add to Bag Row -->
+                        <div class="studio-checkout-bar">
+                            <div>
+                                <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Custom Brew Total</span>
+                                <div class="studio-total-price" id="studioPrice">₹280</div>
+                            </div>
+                            <button class="btn-primary" onclick="addCustomCupToCart()">
+                                Add Custom Cup to Bag ☕
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
+        <!-- PHILOSOPHY & ROASTERY SHOWCASE (PRESERVING ORIGINAL MESSAGE) -->
+        <section class="philosophy-section" id="philosophy">
+            <div class="container">
+                <div class="philosophy-grid">
+                    <div class="philosophy-text-col">
+                        <span class="section-tag">✦ OUR PHILOSOPHY</span>
+                        <h2>Good coffee.<br>Nothing complicated.</h2>
+                        <p class="philosophy-desc">
+                            We believe coffee doesn't need to be complicated. Just good beans, careful roasting and a little time. We source directly from sustainable shade-grown micro-farms, roast each lot to unlock its native terroir, and serve every cup with unhurried warmth.
+                        </p>
+
+                        <div class="philosophy-badges">
+                            <div class="philo-badge-card">
+                                <h4>Small-Batch Roasting</h4>
+                                <p>5kg cast-iron drum roaster allows pinpoint thermal control for each batch.</p>
+                            </div>
+                            <div class="philo-badge-card">
+                                <h4>Direct Fair Trade</h4>
+                                <p>Paying 40% above fair-trade floor directly to multigenerational farm families.</p>
+                            </div>
+                            <div class="philo-badge-card">
+                                <h4>Pure Mountain Water</h4>
+                                <p>Filtered through 5-stage reverse osmosis and re-mineralized for optimal extraction.</p>
+                            </div>
+                            <div class="philo-badge-card">
+                                <h4>Zero Single-Use Waste</h4>
+                                <p>100% plant-derived compostable cups or bring your ceramic cup for 10% off.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="philosophy-image-col">
+                        <img src="assets/pour_over.jpg" alt="Artisanal V60 Hand Pour-over Extraction at Bean & Beyond">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE MENU (FROM THE BAR) -->
+        <section class="menu-section" id="menu">
+            <div class="container">
+                <div class="menu-header-row">
+                    <div>
+                        <span class="section-tag">✦ FROM THE BAR</span>
+                        <h2 class="section-title">Our Coffee & Beyond</h2>
+                        <p class="section-subtitle">
+                            Single origin espressos, slow pour-overs, artisan bakes, and whole roasted beans.
+                        </p>
+                    </div>
+
+                    <div class="menu-search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="menu-search-input" id="menuSearchInput" placeholder="Search coffee, pastries, notes..." oninput="searchMenu(this.value)">
+                    </div>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="category-filter-bar">
+                    <button class="cat-btn active" onclick="filterCategory('all', this)">All Brews (15)</button>
+                    <button class="cat-btn" onclick="filterCategory('espresso', this)">Espresso Bar</button>
+                    <button class="cat-btn" onclick="filterCategory('pourover', this)">Slow Pour-Overs</button>
+                    <button class="cat-btn" onclick="filterCategory('signatures', this)">Signature Crafts</button>
+                    <button class="cat-btn" onclick="filterCategory('bakery', this)">Bakery & Bites</button>
+                    <button class="cat-btn" onclick="filterCategory('beans', this)">Whole Beans 250g</button>
+                </div>
+
+                <!-- Menu Cards Grid -->
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- BAKERY SHOWCASE -->
+        <section class="bakery-section" id="bakery">
+            <div class="container">
+                <div class="bakery-grid">
+                    <div class="bakery-image-frame">
+                        <img src="assets/bakery.jpg" alt="Fresh Flaky Butter Croissant and Cardamom Buns">
+                        <div class="bakery-schedule-badge">
+                            🔥 Oven warm times: <strong>8:00 AM & 2:30 PM</strong>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="section-tag">✦ MORNING BAKEHOUSE</span>
+                        <h2 class="section-title">Warm From The Hearth</h2>
+                        <p class="section-subtitle">
+                            Every croissant is slow-laminated with cultured French butter over 72 hours. Our Swedish cardamom buns are ground fresh daily with heirloom green pods.
+                        </p>
+
+                        <div class="pastry-items-list">
+                            <div class="pastry-card-mini">
+                                <div>
+                                    <h4 style="font-size: 1.05rem;">Normandy Butter Croissant</h4>
+                                    <p style="font-size: 0.82rem; color: var(--text-secondary);">32 flaky micro-layers, honeycomb center, melt-in-mouth crumb.</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-family: var(--font-accent); font-weight: 800; font-size: 1.1rem;">₹190</div>
+                                    <button class="btn-add-cart" style="padding: 6px 12px; font-size: 0.75rem; margin-top: 4px;" onclick="addToCart('Normandy Butter Croissant', 190, 'Pastry', 'bakery-croissant')">Add +</button>
+                                </div>
+                            </div>
+
+                            <div class="pastry-card-mini">
+                                <div>
+                                    <h4 style="font-size: 1.05rem;">Swedish Cardamom Bun (Kardemummabulle)</h4>
+                                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Braided sourdough twist with crushed cardamom seeds and pearl sugar.</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-family: var(--font-accent); font-weight: 800; font-size: 1.1rem;">₹210</div>
+                                    <button class="btn-add-cart" style="padding: 6px 12px; font-size: 0.75rem; margin-top: 4px;" onclick="addToCart('Swedish Cardamom Bun', 210, 'Pastry', 'bakery-cardamom-bun')">Add +</button>
+                                </div>
+                            </div>
+
+                            <div class="pastry-card-mini">
+                                <div>
+                                    <h4 style="font-size: 1.05rem;">Kyoto Espresso Tiramisu Pot</h4>
+                                    <p style="font-size: 0.82rem; color: var(--text-secondary);">Savoiardi biscuits soaked in our 12-hour cold drip and whipped mascarpone.</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-family: var(--font-accent); font-weight: 800; font-size: 1.1rem;">₹240</div>
+                                    <button class="btn-add-cart" style="padding: 6px 12px; font-size: 0.75rem; margin-top: 4px;" onclick="addToCart('Kyoto Espresso Tiramisu Pot', 240, 'Pastry', 'bakery-tiramisu')">Add +</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE SECRET BARISTA VAULT BANNER -->
+        <section class="vault-banner">
+            <div class="container">
+                <div class="vault-card">
+                    <span class="vault-badge">✦ RESTRICTED ACCESS</span>
+                    <h2>The Barista Vault</h2>
+                    <p>
+                        Off-menu concoctions concocted after closing hours. Unfiltered, experimental, and only poured for those who seek beyond the ordinary.
+                    </p>
+                    <button class="btn-vault-unlock" onclick="openVaultModal()">
+                        Unlock Secret Menu (3 Hidden Brews) 🗝️
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLE RESERVATION & TASTING FLIGHTS -->
+        <section class="reserve-section" id="reserve">
+            <div class="container">
+                <div class="reserve-card">
+                    <div>
+                        <span class="section-tag">✦ SLOW SITTINGS</span>
+                        <h2 class="section-title">Reserve A Table or Flight</h2>
+                        <p class="section-subtitle" style="margin-bottom: 24px;">
+                            Planning an intimate conversation, deep study session, or a guided 3-course coffee tasting flight? Let us prepare your corner.
+                        </p>
+
+                        <div style="background: var(--bg-surface); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-top: 20px;">
+                            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">☕ Guided Coffee Tasting Flight (₹650)</div>
+                            <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6;">
+                                Includes a single origin espresso, a precision V60 pour over, and a cold drip extraction with chocolate pairings, hosted by our lead roaster.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form class="reserve-form" id="reservationForm" onsubmit="handleReservation(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resName">Full Name</label>
+                                <input type="text" id="resName" class="form-input" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resPhone">Phone / WhatsApp</label>
+                                <input type="tel" id="resPhone" class="form-input" placeholder="+91 98765 43210" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resGuests">Party Size</label>
+                                <select id="resGuests" class="form-select">
+                                    <option>1 Person (Solo Reading / Coding)</option>
+                                    <option>2 Persons (Cozy Catchup)</option>
+                                    <option>3-4 Persons (Table Booth)</option>
+                                    <option>Guided Tasting Flight (2-4 Pax)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="resArea">Preferred Setting</label>
+                                <select id="resArea" class="form-select">
+                                    <option>The Corner Window Table</option>
+                                    <option>Roaster Tasting Counter</option>
+                                    <option>The Sunlit Garden Patio</option>
+                                    <option>The Silent Reading Nook</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="resDate">Reservation Date</label>
+                                <input type="date" id="resDate" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resTime">Preferred Time</label>
+                                <select id="resTime" class="form-select">
+                                    <option>Morning Pour (08:30 AM)</option>
+                                    <option>Midday Break (11:30 AM)</option>
+                                    <option>Golden Hour (04:00 PM)</option>
+                                    <option>Evening Lo-Fi Session (07:30 PM)</option>
+                                    <option>Night Brew (09:30 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="margin-top: 8px; justify-content: center;">
+                            Confirm Table Reservation ✦
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTES FROM THE CORNER TABLE (GUESTBOOK) -->
+        <section class="guestbook-section" id="guestbook">
+            <div class="container">
+                <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+                    <span class="section-tag">✦ COMMUNITY VIBES</span>
+                    <h2 class="section-title">Notes from the Corner Table</h2>
+                    <p class="section-subtitle" style="margin: 0 auto;">
+                        Scraps of poetry, grateful sighs, and thoughts penned between sips of espresso. Leave a trace of your visit.
+                    </p>
+                </div>
+
+                <div class="guestbook-grid" id="guestbookGrid">
+                    <!-- Populated dynamically by JavaScript -->
+                </div>
+
+                <!-- Add New Note Box -->
+                <div class="new-note-box">
+                    <h4 style="font-size: 1.15rem; font-weight: 600;">Leave a note on our board</h4>
+                    <form onsubmit="addGuestNote(event)" style="display: flex; flex-direction: column; gap: 14px;">
+                        <textarea id="newNoteText" class="form-input" rows="3" placeholder="What are you pondering over your coffee today?" required></textarea>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <input type="text" id="newNoteAuthor" class="form-input" style="flex: 1; min-width: 220px;" placeholder="Your Name or Table # (optional)">
+                            <button type="submit" class="btn-primary" style="padding: 12px 24px;">Pin My Note 📌</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
 
- 
-    <section class="about">
-
-        <div class="about-heading">
-            <p>OUR PHILOSOPHY</p>
-            <h2>Good coffee.<br>Nothing complicated.</h2>
-        </div>
-
-        <div class="about-text">
-            <p>
-                We believe coffee doesn't need to be complicated.
-                Just good beans, careful roasting and a little time.
-            </p>
-        </div>
-
-    </section>
-
-
-     
-    <section class="menu">
-
-        <p class="section-label">FROM THE BAR</p>
-
-        <h2>Our coffee</h2>
-
-        <div class="menu-list">
-
-            <div class="menu-item">
-                <span>Espresso</span>
-                <span>₹160</span>
-            </div>
-
-            <div class="menu-item">
-                <span>Cappuccino</span>
-                <span>₹220</span>
-            </div>
-
-            <div class="menu-item">
-                <span>Classic Latte</span>
-                <span>₹240</span>
-            </div>
-
-            <div class="menu-item">
-                <span>Mocha</span>
-                <span>₹250</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    
+    <!-- FOOTER (PRESERVING AND EXPANDING ORIGINAL) -->
     <footer>
+        <div class="container">
+            <div class="footer-top-grid">
+                <div class="footer-brand">
+                    <h3>BEAN & BEYOND</h3>
+                    <p>
+                        Artisanal coffee roastery dedicated to slow mornings, honest craftsmanship, and community connection.
+                    </p>
+                    <div style="margin-top: 18px; font-size: 0.85rem; color: var(--accent-caramel);">
+                        📍 42 Indiranagar 12th Main, Bangalore · India
+                    </div>
+                </div>
 
-        <div class="footer-logo">
-            BEAN & BEYOND
+                <div class="footer-col">
+                    <h4>Hours & Roasting</h4>
+                    <div class="footer-links-list">
+                        <span>Mon – Fri: 07:00 AM – 11:00 PM</span>
+                        <span>Sat – Sun: 07:30 AM – 11:30 PM</span>
+                        <span style="color: var(--accent-caramel); font-weight: 600;">Drum Roasting: Tue & Fri</span>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <div class="footer-links-list">
+                        <a href="#hero">Home</a>
+                        <a href="#menu">Our Coffee Menu</a>
+                        <a href="#brew-studio">Craft Studio</a>
+                        <a href="#philosophy">Our Philosophy</a>
+                        <a href="#reserve">Table Reservation</a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="footer-links-list">
+                        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram (@beanandbeyond)</a>
+                        <a href="mailto:hello@beanandbeyond.coffee">hello@beanandbeyond.coffee</a>
+                        <a href="tel:+919876543210">+91 (080) 4590-2391</a>
+                        <span style="color: #998a7e; font-size: 0.8rem; margin-top: 6px;">Use code <strong>VIBECODE</strong> for 15% off first bag</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Bean & Beyond Coffee Roasters. All rights reserved.</p>
+                <div style="display: flex; gap: 20px;">
+                    <a href="#hero" style="color: inherit;">Back to Top ↑</a>
+                </div>
+            </div>
         </div>
-
-        <div class="footer-links">
-            <a href="#">Instagram</a>
-            <a href="#">Contact</a>
-            <a href="#">Location</a>
-        </div>
-
-        <p>© 2026 Bean & Beyond</p>
-
     </footer>
 
-</body>
+    <!-- SLIDE-OUT SHOPPING BAG DRAWER -->
+    <div class="cart-backdrop" id="cartBackdrop" onclick="closeCartDrawer()"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Your Coffee Bag ☕</h3>
+            <button class="btn-close-cart" onclick="closeCartDrawer()" aria-label="Close Bag">✕</button>
+        </div>
 
+        <div class="cart-items-scroll" id="cartItemsList">
+            <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="promo-row">
+                <input type="text" class="promo-input" id="promoInput" placeholder="Promo code (try VIBECODE)">
+                <button class="btn-apply-promo" onclick="applyPromoCode()">Apply</button>
+            </div>
+
+            <div class="cart-totals">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">₹0</span>
+                </div>
+                <div class="total-row" id="cartDiscountRow" style="display: none; color: var(--accent-terracotta);">
+                    <span>Discount</span>
+                    <span id="cartDiscountAmount">-₹0</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Grand Total</span>
+                    <span id="cartGrandTotal">₹0</span>
+                </div>
+            </div>
+
+            <button class="btn-checkout" onclick="openCheckoutModal()">
+                Proceed to Checkout <span>→</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT & DIGITAL RECEIPT MODAL -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="receipt-modal-box">
+            <button class="btn-close-cart" style="position: absolute; top: 20px; right: 20px;" onclick="closeCheckoutModal()" aria-label="Close modal">✕</button>
+            <div id="receiptContent">
+                <!-- Populated dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SECRET BARISTA VAULT MODAL -->
+    <div class="modal-overlay" id="vaultModal">
+        <div class="receipt-modal-box" style="max-width: 540px;">
+            <button class="btn-close-cart" style="position: absolute; top: 20px; right: 20px;" onclick="closeVaultModal()" aria-label="Close modal">✕</button>
+            <div style="text-align: center; margin-bottom: 24px;">
+                <span class="vault-badge">✦ UNLOCKED</span>
+                <h3 style="font-size: 1.8rem; margin: 8px 0;">The Secret Barista Vault</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                    Handcrafted after-hours formulas crafted by our master barista. Limited to 15 pours per day.
+                </p>
+            </div>
+
+            <div id="vaultList" style="display: flex; flex-direction: column; gap: 14px;">
+                <!-- Populated dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
 </html>
